@@ -22,8 +22,8 @@ class MockApi:
                 A call to iter_test serves all rows of all dataframes with the current group ID value.
             export_group_id_column: if true, the dataframes iter_test serves will include the group_id_column values.
         '''
-        self.input_paths: Sequence[str] = ['./.data/test.csv', './.data/sample_submission.csv']
-        self.group_id_column: str = 'row_id'
+        self.input_paths: Sequence[str] = ['./.data/test.csv', './.data/revealed_targets.csv', './.data/sample_submission.csv']
+        self.group_id_column: str = ['time_id']
         self.export_group_id_column: bool = True
         # iter_test is only designed to support at least two dataframes, such as test and sample_submission
         assert len(self.input_paths) >= 2
@@ -43,7 +43,7 @@ class MockApi:
         dataframes = []
         for pth in self.input_paths:
             dataframes.append(pd.read_csv(pth, low_memory=False))
-        group_order = dataframes[0][self.group_id_column].drop_duplicates().tolist()
+        group_order = dataframes[0][self.group_id_column].drop_duplicates().values.tolist()
         dataframes = [df.set_index(self.group_id_column) for df in dataframes]
 
         for group_id in group_order:
@@ -63,7 +63,7 @@ class MockApi:
                 print('You must call `predict()` successfully before you can continue with `iter_test()`', flush=True)
                 yield None
 
-        with open('submission.csv', 'w') as f_open:
+        with open('./.data/submission.csv', 'w') as f_open:
             pd.concat(self.predictions).to_csv(f_open, index=False)
         self._status = 'finished'
 
