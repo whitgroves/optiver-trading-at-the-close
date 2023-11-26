@@ -1,3 +1,3 @@
-py -m pip install -U --extra-index-url=https://pypi.nvidia.com pip cudf-cu12 dask-cudf-cu12 tensorflow[and-cuda] scikit-learn ipykernel xgboost lightgbm catboost
+py -m pip install -U --extra-index-url=https://pypi.nvidia.com pip cudf-cu12 dask-cudf-cu12 tensorflow[and-cuda] scikit-learn ipykernel
 
-^ cudf-cu12 has a lot of dependencies on the nvidia package index, and this is faster than manually updating requirements.txt
+^ cudf-cu12 has a lot of dependencies on the nvidia package index, and this is faster than manually updating the indexes in requirements.txt
