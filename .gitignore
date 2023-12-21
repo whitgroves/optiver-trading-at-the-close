@@ -4,5 +4,5 @@ __*__/
 
 # artifacts
 *.log
-*/catboost_info/*
+catboost_info/*
 .~lock.*
